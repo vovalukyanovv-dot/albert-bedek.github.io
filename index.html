@@ -65,11 +65,17 @@
     .accent { color: var(--orange); }
 
     /* Floating WhatsApp */
-    .floating-whatsapp {
+    .floating-whatsapp-wrap {
       position: fixed;
       bottom: 20px;
       right: 20px;
       z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      direction: rtl;
+    }
+    .floating-whatsapp {
       background: var(--green-cta);
       color: var(--white);
       width: 60px;
@@ -83,8 +89,40 @@
       text-decoration: none;
       animation: pulse-green 2s infinite;
       transition: transform var(--transition);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
     }
     .floating-whatsapp:hover { transform: scale(1.1); }
+    .wa-bubble {
+      background: var(--white);
+      color: var(--gray-800);
+      padding: 8px 16px 8px 12px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+      margin-right: -8px;
+      position: relative;
+      animation: bubble-fade 3s ease-in-out infinite;
+    }
+    .wa-bubble::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 7px solid var(--white);
+    }
+    @keyframes bubble-fade {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
     @keyframes pulse-green {
       0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
       50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); }
@@ -229,7 +267,7 @@
     /* Hero */
     .hero {
       background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #2c4570 100%);
-      padding: 60px 0 70px;
+      padding: 60px 0 80px;
       position: relative;
       overflow: hidden;
     }
@@ -746,7 +784,7 @@
       }
       .header .container { position: relative; }
       .hero .container { grid-template-columns: 1fr; gap: 36px; }
-      .hero { padding: 40px 0 50px; }
+      .hero { padding: 36px 0 70px; }
       .hero-stats { gap: 20px; justify-content: center; }
       .footer-content { grid-template-columns: 1fr; gap: 28px; }
       .floating-call { display: flex; }
@@ -768,7 +806,9 @@
       .pricing-table { font-size: 0.82rem; }
       .pricing-table th, .pricing-table td { padding: 10px 8px; }
       .cta-buttons { flex-direction: column; align-items: center; }
-      .floating-whatsapp { bottom: 90px; }
+      .floating-whatsapp-wrap { bottom: 90px; }
+      .floating-call { bottom: 24px; }
+      .wa-bubble { font-size: 0.75rem; padding: 6px 12px 6px 10px; }
     }
 
     @media (max-width: 380px) {
@@ -779,8 +819,11 @@
 </head>
 <body>
 
-  <!-- Floating WhatsApp -->
-  <a href="https://api.whatsapp.com/send?phone=972547943605&text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%94%D7%A6%D7%A2%D7%AA%20%D7%9E%D7%97%D7%99%D7%A8%20%D7%9C%D7%91%D7%93%D7%A7%20%D7%91%D7%99%D7%AA" target="_blank" class="floating-whatsapp" aria-label="שלחו הודעה בוואטסאפ">💬</a>
+  <!-- Floating WhatsApp with bubble -->
+  <div class="floating-whatsapp-wrap">
+    <a href="https://api.whatsapp.com/send?phone=972547943605&text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%94%D7%A6%D7%A2%D7%AA%20%D7%9E%D7%97%D7%99%D7%A8%20%D7%9C%D7%91%D7%93%D7%A7%20%D7%91%D7%99%D7%AA" target="_blank" class="floating-whatsapp" aria-label="שלחו הודעה בוואטסאפ">💬</a>
+    <div class="wa-bubble">בואו לקבל הצעה בוואטסאפ!</div>
+  </div>
 
   <!-- Floating Call (mobile) -->
   <a href="tel:0547943605" class="floating-call" aria-label="חייגו עכשיו">📞</a>
