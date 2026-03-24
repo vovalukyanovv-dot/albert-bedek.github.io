@@ -899,10 +899,12 @@
           <h3>🏠 קבלו הצעת מחיר חינם</h3>
           <p>השאירו פרטים ונחזור אליכם תוך שעה</p>
         </div>
-        <form id="leadForm">
+        <form id="leadForm" action="https://formspree.io/f/xgongqoy" method="POST">
+          <input type="hidden" name="_subject" value="ליד חדש מדף הנחיתה - אלברט בדק בית">
+          <input type="hidden" name="_next" value="">
           <div class="form-group">
             <label for="fullName">שם מלא</label>
-            <input type="text" id="fullName" name="fullName" placeholder="הכניסו את שמכם" required>
+            <input type="text" id="fullName" name="name" placeholder="הכניסו את שמכם" required>
           </div>
           <div class="form-group">
             <label for="phone">טלפון</label>
@@ -919,8 +921,14 @@
               <option value="שטח מסחרי / ציבורי">שטח מסחרי / ציבורי</option>
             </select>
           </div>
-          <button type="submit" class="btn-submit">קבלו הצעת מחיר לבדיקה עכשיו ←</button>
+          <button type="submit" class="btn-submit" id="submitBtn">קבלו הצעת מחיר לבדיקה עכשיו ←</button>
           <p class="form-note">🔒 הפרטים שלכם מאובטחים ולא יועברו לצד שלישי</p>
+          <div id="formSuccess" style="display:none; text-align:center; padding:16px; margin-top:12px; background:#e6f9e6; border-radius:10px; color:#1a7a1a; font-weight:700;">
+            ✅ הפרטים נשלחו בהצלחה! נחזור אליכם בהקדם.
+          </div>
+          <div id="formError" style="display:none; text-align:center; padding:16px; margin-top:12px; background:#fde8e8; border-radius:10px; color:#c0392b; font-weight:700;">
+            ❌ שגיאה בשליחה. נסו שוב או חייגו 054-7943605
+          </div>
         </form>
       </div>
     </div>
@@ -1183,16 +1191,40 @@
       a.addEventListener('click', () => navLinks.classList.remove('open'));
     });
 
-    // Form → WhatsApp redirect
+    // Form → Formspree AJAX submit
     document.getElementById('leadForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const name = document.getElementById('fullName').value;
-      const phone = document.getElementById('phone').value;
-      const type = document.getElementById('propertyType').value;
-      const msg = encodeURIComponent(
-        'היי, אשמח לקבל הצעת מחיר לבדק בית 🏠\n\nשם: ' + name + '\nטלפון: ' + phone + '\nסוג נכס: ' + type
-      );
-      window.open('https://api.whatsapp.com/send?phone=972547943605&text=' + msg, '_blank');
+      var form = this;
+      var btn = document.getElementById('submitBtn');
+      var successEl = document.getElementById('formSuccess');
+      var errorEl = document.getElementById('formError');
+      
+      btn.textContent = 'שולח...';
+      btn.disabled = true;
+      successEl.style.display = 'none';
+      errorEl.style.display = 'none';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response) {
+        if (response.ok) {
+          successEl.style.display = 'block';
+          form.reset();
+          btn.textContent = 'נשלח בהצלחה ✅';
+          setTimeout(function() {
+            btn.textContent = 'קבלו הצעת מחיר לבדיקה עכשיו ←';
+            btn.disabled = false;
+          }, 4000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      }).catch(function() {
+        errorEl.style.display = 'block';
+        btn.textContent = 'קבלו הצעת מחיר לבדיקה עכשיו ←';
+        btn.disabled = false;
+      });
     });
 
     // Scroll reveal
