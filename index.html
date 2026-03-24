@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>אלברט בדק בית מתקדם | בדיקת ליקויי בנייה מקצועית</title>
-  <meta name="description" content="בדק בית הנדסי ומתקדם לאיתור ליקויים סמויים. בדיקה מקיפה ע״י בודק מוסמך עם ציוד תרמי מתקדם. דוח הנדסי קביל בבית משפט.">
+  <meta name="description" content="בדק בית הנדסי ומתקדם לאיתור ליקויים סמויים. בדיקה מקיפה ע״י בודק הנדסי מוסמך (רשיון 3109633) עם ציוד תרמי מתקדם. דוח הנדסי קביל בבית משפט.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -396,6 +396,24 @@
       background: var(--white);
     }
     .form-group input::placeholder { color: var(--gray-400); }
+    .form-group .field-error {
+      display: none;
+      font-size: 0.78rem;
+      color: #d63031;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .form-group.has-error input,
+    .form-group.has-error select {
+      border-color: #d63031;
+      background: #fff5f5;
+    }
+    .form-group.has-error .field-error { display: block; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
     .btn-submit {
       width: 100%;
       padding: 14px;
@@ -831,7 +849,7 @@
   <!-- Top Bar -->
   <div class="top-bar">
     <div class="container">
-      <span>🔍 בדק בית מקצועי לאיתור ליקויי בנייה בפריסה ארצית</span>
+      <span>🔍 בדק בית מקצועי לאיתור ליקויי בנייה · פריסה ארצית 🇮🇱</span>
       <span>📞 לתיאום בדיקה חייגו: <a href="tel:0547943605">054-7943605</a></span>
     </div>
   </div>
@@ -866,7 +884,7 @@
   <section class="hero" id="hero">
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge">✅ בודק מוסמך משרד העבודה</div>
+        <div class="hero-badge">🇮🇱 בודק הנדסי מוסמך · רשיון 3109633</div>
         <h1>
           קונים דירה?
           <br>
@@ -875,7 +893,7 @@
           בדק בית הנדסי ומתקדם לאיתור ליקויים סמויים
         </h1>
         <p class="hero-sub">
-          בדיקה מקיפה ע״י בודק מוסמך משרד העבודה עם ציוד תרמי מתקדם.
+          בדיקה מקיפה ע״י בודק הנדסי מוסמך (רשיון 3109633) עם ציוד תרמי מתקדם.
           קבלו דו״ח הנדסי מפורט, קביל בבית משפט — תוך 5 ימי עסקים.
         </p>
         <div class="hero-stats">
@@ -902,13 +920,15 @@
         <form id="leadForm" action="https://formspree.io/f/xgongqoy" method="POST">
           <input type="hidden" name="_subject" value="ליד חדש מדף הנחיתה - אלברט בדק בית">
           <input type="hidden" name="_next" value="">
-          <div class="form-group">
+          <div class="form-group" id="nameGroup">
             <label for="fullName">שם מלא</label>
-            <input type="text" id="fullName" name="name" placeholder="הכניסו את שמכם" required>
+            <input type="text" id="fullName" name="name" placeholder="הכניסו את שמכם בעברית" required>
+            <div class="field-error" id="nameError">יש להזין שם בעברית בלבד</div>
           </div>
-          <div class="form-group">
+          <div class="form-group" id="phoneGroup">
             <label for="phone">טלפון</label>
-            <input type="tel" id="phone" name="phone" placeholder="05X-XXXXXXX" required>
+            <input type="tel" id="phone" name="phone" placeholder="05X-XXXXXXX" maxlength="11" required>
+            <div class="field-error" id="phoneError">יש להזין מספר נייד ישראלי — 10 ספרות</div>
           </div>
           <div class="form-group">
             <label for="propertyType">סוג הנכס</label>
@@ -940,7 +960,7 @@
       <div class="trust-items">
         <div class="trust-item">
           <div class="trust-icon">🏅</div>
-          <span>בודק מוסמך משרד העבודה</span>
+          <span>בודק הנדסי · רשיון 3109633</span>
         </div>
         <div class="trust-item">
           <div class="trust-icon">🔬</div>
@@ -952,7 +972,7 @@
         </div>
         <div class="trust-item">
           <div class="trust-icon">🇮🇱</div>
-          <span>פריסה ארצית</span>
+          <span>פריסה ארצית בכל ישראל</span>
         </div>
       </div>
     </div>
@@ -1147,7 +1167,7 @@
       <div class="footer-content">
         <div>
           <h4>אלברט בדק בית מתקדם</h4>
-          <p>שירותי בדק בית מקצועיים בפריסה ארצית. בדיקה הנדסית מקיפה לכל סוגי הנכסים — ע״י בודק מוסמך משרד העבודה, עם ציוד מתקדם ודו״ח הנדסי בעל תוקף משפטי.</p>
+          <p>שירותי בדק בית מקצועיים בפריסה ארצית 🇮🇱 בדיקה הנדסית מקיפה לכל סוגי הנכסים — ע״י בודק הנדסי מוסמך (רשיון 3109633), עם ציוד מתקדם ודו״ח הנדסי בעל תוקף משפטי.</p>
         </div>
         <div>
           <h4>ניווט מהיר</h4>
@@ -1191,14 +1211,46 @@
       a.addEventListener('click', () => navLinks.classList.remove('open'));
     });
 
-    // Form → Formspree AJAX submit
+    // Form validation + Formspree AJAX submit
     document.getElementById('leadForm').addEventListener('submit', function(e) {
       e.preventDefault();
       var form = this;
       var btn = document.getElementById('submitBtn');
       var successEl = document.getElementById('formSuccess');
       var errorEl = document.getElementById('formError');
-      
+
+      // Reset errors
+      document.querySelectorAll('.form-group').forEach(function(g) { g.classList.remove('has-error'); });
+
+      var nameVal = document.getElementById('fullName').value.trim();
+      var phoneVal = document.getElementById('phone').value.trim();
+      var valid = true;
+
+      // Hebrew-only name validation (Hebrew letters, spaces, quotes, hyphens)
+      var hebrewRegex = /^[\u0590-\u05FF\s'"\\-]{2,}$/;
+      if (!hebrewRegex.test(nameVal)) {
+        document.getElementById('nameGroup').classList.add('has-error');
+        valid = false;
+      }
+
+      // Phone: strip dashes/spaces, must be exactly 10 digits
+      var phoneClean = phoneVal.replace(/[\s\-]/g, '');
+      if (!/^\d{10}$/.test(phoneClean)) {
+        document.getElementById('phoneGroup').classList.add('has-error');
+        valid = false;
+      }
+
+      if (!valid) {
+        // Shake the button
+        btn.style.animation = 'none';
+        btn.offsetHeight;
+        btn.style.animation = 'shake 0.4s ease';
+        return;
+      }
+
+      // Update phone value to clean version
+      document.getElementById('phone').value = phoneClean;
+
       btn.textContent = 'שולח...';
       btn.disabled = true;
       successEl.style.display = 'none';
@@ -1225,6 +1277,14 @@
         btn.textContent = 'קבלו הצעת מחיר לבדיקה עכשיו ←';
         btn.disabled = false;
       });
+    });
+
+    // Live clear errors on input
+    document.getElementById('fullName').addEventListener('input', function() {
+      document.getElementById('nameGroup').classList.remove('has-error');
+    });
+    document.getElementById('phone').addEventListener('input', function() {
+      document.getElementById('phoneGroup').classList.remove('has-error');
     });
 
     // Scroll reveal
