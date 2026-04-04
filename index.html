@@ -5,6 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>אלברט בדק בית | בדיקת ליקויי בנייה מקצועית · רשיון 1622517</title>
   <meta name="description" content="בדק בית הנדסי ומתקדם לאיתור ליקויים סמויים. בודק הנדסי מוסמך רשיון 1622517. דוח הנדסי קביל בבית משפט תוך 5 ימי עסקים. 500+ בדיקות. קבלו הצעה חינם!">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://albert-bedek-bayit.co.il/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:title" content="אלברט בדק בית | בדיקת ליקויי בנייה מקצועית · רשיון 1622517">
+  <meta property="og:description" content="בדק בית הנדסי לאיתור ליקויים סמויים לפני רכישת נכס. בודק מוסמך, ציוד תרמי, דו״ח קביל בבית משפט תוך 5 ימי עסקים. מ-1,100 ₪ בלבד.">
+  <meta property="og:url" content="https://albert-bedek-bayit.co.il/">
+  <meta property="og:site_name" content="אלברט בדק בית">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="אלברט בדק בית | בדיקת ליקויי בנייה מקצועית">
+  <meta name="twitter:description" content="500+ בדיקות. דו״ח הנדסי קביל בבית משפט. מ-1,100 ₪ בלבד. קבלו הצעת מחיר חינם!">
+
+  <!-- Google Tag (GA4) — החליפו G-XXXXXXXXXX במזהה האמיתי שלכם -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Structured Data — LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "אלברט בדק בית מתקדם",
+    "description": "שירותי בדק בית הנדסי מקצועיים בפריסה ארצית",
+    "telephone": "+972547943605",
+    "email": "albert.bedek.bayit@gmail.com",
+    "url": "https://albert-bedek-bayit.co.il",
+    "areaServed": { "@type": "Country", "name": "Israel" },
+    "priceRange": "₪₪",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],
+      "opens": "08:00",
+      "closes": "20:00"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "reviewCount": "127"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "שירותי בדק בית",
+      "itemListElement": [
+        { "@type": "Offer", "name": "בדיקת דירה 2 חדרים", "price": "1100", "priceCurrency": "ILS" },
+        { "@type": "Offer", "name": "בדיקת דירה 3 חדרים", "price": "1200", "priceCurrency": "ILS" },
+        { "@type": "Offer", "name": "בדיקת דירה 4 חדרים", "price": "1300", "priceCurrency": "ILS" }
+      ]
+    }
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +98,24 @@
       --t:           .25s var(--ease);
     }
 
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+
+    /* Skip nav — accessibility, no overflow */
+    .skip-nav {
+      position: absolute;
+      width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0; text-decoration: none;
+    }
+    .skip-nav:focus {
+      position: fixed; top: 16px; left: 50%;
+      transform: translateX(-50%);
+      width: auto; height: auto; padding: 8px 20px;
+      clip: auto; white-space: normal;
+      background: var(--white); color: var(--navy);
+      border-radius: 8px; font-weight: 700; z-index: 9999;
+      box-shadow: var(--shadow-md);
+    }
 
     body {
       font-family: 'Heebo', sans-serif;
@@ -86,13 +161,12 @@
 
     .text-center { text-align: center; }
 
-    /* ─── Reveal ─── */
+    /* ─── Reveal — initial state for GSAP ─── */
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .6s var(--ease), transform .6s var(--ease);
+      transform: translateY(24px);
+      will-change: transform, opacity; /* GPU layer hint */
     }
-    .reveal.visible { opacity: 1; transform: none; }
 
     /* ─────────────────────────────────────────
        FLOATING BUTTONS
@@ -198,10 +272,12 @@
       position: sticky; top: 0; z-index: 200;
       border-bottom: 1px solid var(--gray-100);
       box-shadow: var(--shadow-sm);
+      overflow: visible; /* ← iOS fix: ensures mobile menu is not clipped */
     }
     .header .container {
       display: flex; align-items: center; justify-content: space-between;
-      position: relative;
+      gap: 20px; /* ← רווח קבוע בין לוגו, ניווט וכפתור */
+      position: relative; overflow: visible;
     }
     .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .logo img { height: 48px; width: auto; border-radius: 8px; }
@@ -775,9 +851,11 @@
       .burger { display: flex; }
       .header-nav.open {
         display: flex; flex-direction: column;
-        position: absolute; top: 100%; right: 0; left: 0;
+        position: fixed; /* ← fixed במקום absolute — פותר בעיית iOS */
+        top: 68px; right: 0; left: 0;
         background: var(--white); padding: 20px 24px;
-        box-shadow: var(--shadow-md); gap: 14px; z-index: 300;
+        box-shadow: var(--shadow-md); gap: 14px; z-index: 9999;
+        max-height: calc(100vh - 68px); overflow-y: auto;
       }
       .hero .container { grid-template-columns: 1fr; gap: 36px; }
       .hero { padding: 60px 0 80px; }
@@ -785,6 +863,12 @@
       .step:not(:last-child)::after { display: none; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
       .float-call { display: flex; }
+    }
+
+    @media (max-width: 480px) {
+      /* הסתרת כפתור CTA בנייד — נשאר מקום ללוגו */
+      .header-cta { display: none; }
+      .logo-text { font-size: .95rem; }
     }
 
     @media (max-width: 640px) {
@@ -814,6 +898,9 @@
   </style>
 </head>
 <body>
+
+<!-- Skip navigation for accessibility -->
+<a href="#hero" class="skip-nav">דלג לתוכן הראשי</a>
 
 <!-- ── Floating WhatsApp ── -->
 <div class="float-wa">
@@ -887,8 +974,8 @@
       </h1>
 
       <p class="hero-sub">
-        בדיקה הנדסית מקיפה לאיתור <strong>ליקויים סמויים</strong>, לפני שאתם רוכשים ומגלים אותם בדרך הקשה.
-        דו"ח הנדסי מפורט, קביל בבית משפט, תוך <strong>5 ימי עסקים</strong>.
+        אל תחתמו על עסקה של מיליונים לפני שיודעים מה מסתתר מאחורי הקירות.
+        בודק הנדסי מוסמך מאתר <strong>ליקויים שהעין לא רואה</strong>, ומגן עליכם עם דו"ח הנדסי קביל בבית משפט תוך <strong>5 ימי עסקים</strong>.
       </p>
 
       <div class="hero-urgency">
@@ -921,7 +1008,7 @@
       <div class="hero-form">
         <div class="form-head">
           <h3>🏠 הצעת מחיר <span class="form-free-badge">חינם</span></h3>
-          <p>השאירו פרטים, נחזור אליכם תוך שעה</p>
+          <p>מענה תוך שעה · ייעוץ ראשוני חינם</p>
         </div>
         <form id="leadForm" action="https://formspree.io/f/xgongqoy" method="POST" novalidate>
           <input type="hidden" name="_subject" value="ליד חדש – אלברט בדק בית">
@@ -1274,8 +1361,8 @@
 <!-- ── Bottom CTA ── -->
 <section class="bottom-cta">
   <div class="container">
-    <h2 class="reveal">אל תיקחו סיכון על <span class="accent">הרכישה הגדולה</span> בחייכם</h2>
-    <p class="reveal">בדיקה שעולה 1,100 ₪ יכולה לחסוך לכם עשרות אלפי שקלים, ושנים של טרדות.</p>
+    <h2 class="reveal">השקט הנפשי שלכם שווה <span class="accent">1,100 ₪</span></h2>
+    <p class="reveal">500+ משפחות כבר הבטיחו את עצמן לפני הרכישה הגדולה בחייהן. בדיקה אחת של כמה שעות יכולה לחסוך עשרות אלפי שקלים ושנים של טרדות.</p>
     <div class="cta-row reveal">
       <a href="https://api.whatsapp.com/send?phone=972547943605&text=%D7%94%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%94%D7%A6%D7%A2%D7%AA%20%D7%9E%D7%97%D7%99%D7%A8%20%D7%9C%D7%91%D7%93%D7%A7%20%D7%91%D7%99%D7%AA"
          target="_blank" class="btn-wa-big">
@@ -1325,6 +1412,8 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
 // ── Mobile menu ──
 const burger = document.getElementById('burger');
@@ -1332,15 +1421,58 @@ const nav    = document.getElementById('nav');
 burger.addEventListener('click', () => nav.classList.toggle('open'));
 nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
 
-// ── Scroll reveal ──
-const reveals = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
-reveals.forEach((el, i) => {
-  el.style.transitionDelay = (i % 4) * 0.07 + 's';
-  io.observe(el);
+// ── GSAP Scroll Reveal ──
+gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.batch('.reveal', {
+  onEnter: (elements) => {
+    gsap.to(elements, {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,       // ← מהיר יותר
+      stagger: 0.06,       // ← פחות עיכוב בין אלמנטים
+      ease: 'power2.out',
+      overwrite: true,
+    });
+  },
+  start: 'top 96%',       // ← מתחיל ברגע שהאלמנט נכנס למסך
+  once: true,              // ← מנקה אחרי הפעלה ראשונה (ביצועים)
 });
+
+// ── Counter animation for hero stats ──
+const statEls = document.querySelectorAll('.stat-num');
+const statConfigs = [
+  { end: 500, suffix: '+', prefix: '', decimals: 0 },
+  { end: 100, suffix: '%', prefix: '', decimals: 0 },
+  { end: 5,   suffix: '', prefix: '', decimals: 0 },
+  { end: 4.9, suffix: '', prefix: '★', decimals: 1 }
+];
+if (statEls.length >= 4) {
+  ScrollTrigger.create({
+    trigger: '.hero-stats',
+    start: 'top 90%',
+    once: true,
+    onEnter: () => {
+      statEls.forEach((el, i) => {
+        const cfg = statConfigs[i];
+        if (!cfg) return;
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: cfg.end,
+          duration: 1.4,   // ← ספירה מהירה יותר
+          ease: 'power2.out',
+          onUpdate() {
+            const v = cfg.decimals ? obj.val.toFixed(cfg.decimals) : Math.round(obj.val);
+            el.textContent = (cfg.prefix || '') + v + (cfg.suffix || '');
+          },
+          onComplete() {
+            el.style.willChange = 'auto'; // cleanup אחרי אנימציה
+          }
+        });
+      });
+    }
+  });
+}
 
 // ── FAQ accordion ──
 document.querySelectorAll('.faq-q').forEach(btn => {
@@ -1397,6 +1529,16 @@ form.addEventListener('submit', function(e) {
     if (r.ok) {
       msgOk.style.display = 'block';
       form.reset();
+
+      // GA4 — generate_lead event
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', { currency: 'ILS', value: 0 });
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'generate_lead', lead_source: 'hero_form' });
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+        console.log('[GA4] generate_lead fired', { source: 'hero_form' });
+      }
       btnSub.textContent = 'נשלח ✅';
       setTimeout(() => { btnSub.textContent = 'קבלו הצעת מחיר עכשיו ←'; btnSub.disabled = false; }, 4000);
     } else throw new Error();
